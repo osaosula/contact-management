@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Contact } from "@/model/Contact";
 import { createClient } from "./supabase/client";
 

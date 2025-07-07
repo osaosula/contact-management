@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useRouter } from "next/navigation";
@@ -68,7 +70,7 @@ export default function DisplayContacts({
               e.preventDefault();
               // Example: Implement a delete function
               //console.log("Delete contact:", params.data);
-              const id: string | null | undefined = params.data?.id;
+              const id = params.data?.id as string;
               doDelete(id);
               // You would typically call an API here to delete the contact
             }}
@@ -109,14 +111,17 @@ export default function DisplayContacts({
   }, []);
 
   // Handle cell editing
-  const onCellValueChanged = useCallback((event: any) => {
-    const changedValue = event.data;
+  const onCellValueChanged = useCallback(
+    (event: any) => {
+      const changedValue = event.data;
 
-    updateContact(changedValue);
+      updateContact(changedValue);
 
-    alert("Contact updated successfully");
-    router.refresh();
-  }, []);
+      alert("Contact updated successfully");
+      router.refresh();
+    },
+    [router]
+  );
 
   const doDelete = (id: string) => {
     deleteContact(id);
