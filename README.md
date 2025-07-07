@@ -2,7 +2,13 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+First run the installation of all dependencies
+
+```bash
+npm install
+```
+
+Next, run the development server:
 
 ```bash
 npm run dev
@@ -19,6 +25,11 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+The project uses supabase for data handling
+
+The external libraries include:
+Ag-Grid (for data display and manipulation), Shadcn(for styling) and Faker(for generating data for tests), Supabase SSR and Supabase-js (for supabase)
 
 ## Learn More
 
