@@ -51,7 +51,6 @@ export async function updateContact(contact: Contact) {
   return data;
 }
 export async function deleteContact(id: string) {
-  console.log("Id to be deleted: ", id);
   const supabase = await createClient();
   const { error } = await supabase.from("contacts").delete().eq("id", id);
   if (error) console.log(error);

@@ -35,8 +35,8 @@ export default function ContactForm({ user }: { user: User | null }) {
         created_at: "",
       };
 
-      const outcome = saveContact(contactData);
-      console.log(outcome);
+      saveContact(contactData);
+
       alert("Contact saved!");
     } catch (error) {
       console.log(error);
