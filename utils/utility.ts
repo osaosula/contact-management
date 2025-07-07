@@ -50,7 +50,7 @@ export async function updateContact(contact: Contact) {
   if (error) console.log(error);
   return data;
 }
-export async function deleteContact(id: string | null | undefined) {
+export async function deleteContact(id: string) {
   console.log("Id to be deleted: ", id);
   const supabase = await createClient();
   const { error } = await supabase.from("contacts").delete().eq("id", id);

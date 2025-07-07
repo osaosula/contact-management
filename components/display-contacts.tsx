@@ -4,8 +4,8 @@ import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import { AgGridReact } from "ag-grid-react"; // AG Grid React Component
 import { ColDef, ICellRendererParams } from "ag-grid-community"; // AG Grid types
-import "ag-grid-community/styles/ag-grid.css"; // Core AG Grid CSS
-// import "ag-grid-community/styles/ag-theme-quartz.css"; // REMOVED THIS LINE
+// import "ag-grid-community/styles/ag-grid.css"; // Core AG Grid CSS - REMOVED THIS LINE
+// import "ag-grid-community/styles/ag-theme-quartz.css"; // REMOVED THIS LINE previously
 import { useState, useMemo, useCallback } from "react"; // React hooks
 import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
 import { Contact } from "@/model/Contact";

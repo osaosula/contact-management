@@ -27,7 +27,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    ".next/types/app/page.tsx"
+    ".next/types/app/page.tsx",
+    "scripts/generateData.cjs"
   ],
   "exclude": ["node_modules"]
 }
