@@ -1,22 +1,23 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
-import { AgGridReact } from "ag-grid-react"; // AG Grid React Component
-import { ColDef, ICellRendererParams } from "ag-grid-community"; // AG Grid types
-// import "ag-grid-community/styles/ag-grid.css"; // Core AG Grid CSS - REMOVED THIS LINE
-// import "ag-grid-community/styles/ag-theme-quartz.css"; // REMOVED THIS LINE previously
-import { useState, useMemo, useCallback } from "react"; // React hooks
+import { AgGridReact } from "ag-grid-react";
+import {
+  CellValueChangedEvent,
+  ColDef,
+  GridReadyEvent,
+  ICellRendererParams,
+} from "ag-grid-community";
+import { useState, useMemo, useCallback } from "react";
 import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
 import { Contact } from "@/model/Contact";
-import { deleteContact, updateContact } from "@/utils/utility";
+import { deleteContact, updateContact } from "@/app/contacts/add/actions";
 import Link from "next/link";
+import { format } from "date-fns";
+import toast from "react-hot-toast";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
-
-// Define a type for your contact data for better type safety
 
 export default function DisplayContacts({
   contacts,
@@ -25,12 +26,10 @@ export default function DisplayContacts({
 }) {
   const router = useRouter();
 
-  // State to hold grid API and column API
-  const [gridApi, setGridApi] = useState<any>(null);
-  const [gridColumnApi, setGridColumnApi] = useState<any>(null);
+  const dateComp = (p: { value: string | Date }) => {
+    const date = new Date(p.value);
 
-  const dateComp = (p: { value: { toDateString: () => string } }) => {
-    return <>{p.value}</>;
+    return <>{format(date, "MMMM d, yyyy")}</>;
   };
 
   // Column Definitions: Defines the columns to be displayed.
@@ -103,21 +102,18 @@ export default function DisplayContacts({
   }, []);
 
   // Callback to set grid API when the grid is ready
-  const onGridReady = useCallback((params: any) => {
-    setGridApi(params.api);
-    setGridColumnApi(params.columnApi);
-    // Auto-size all columns when grid is ready, or use 'sizeColumnsToFit'
+  const onGridReady = useCallback((params: GridReadyEvent) => {
     params.api.sizeColumnsToFit();
   }, []);
 
   // Handle cell editing
   const onCellValueChanged = useCallback(
-    (event: any) => {
+    (event: CellValueChangedEvent<Contact>) => {
       const changedValue = event.data;
 
       updateContact(changedValue);
 
-      alert("Contact updated successfully");
+      toast.success("Contact updated successfully");
       router.refresh();
     },
     [router]
@@ -125,7 +121,7 @@ export default function DisplayContacts({
 
   const doDelete = (id: string) => {
     deleteContact(id);
-    alert("Contact deleted successfully");
+    toast.success("Contact deleted successfully");
     router.refresh();
   };
 
@@ -167,7 +163,7 @@ export default function DisplayContacts({
         </div>
       ) : (
         // ADDED ag-theme-quartz CLASS HERE
-        <div className="ag-theme-quartz w-full h-[400px]">
+        <div className="ag-theme-quartz w-full h-[600px]">
           <AgGridReact
             rowData={contacts} // Your contact data
             columnDefs={columnDefs} // Column definitions

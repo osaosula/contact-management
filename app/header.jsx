@@ -6,8 +6,8 @@ export default async function PageHeader() {
   const supabase = await createClient();
 
   const { data, error } = await supabase.auth.getUser();
-  const { full_name: fullname } = await geFullname(data.user.id);
-  //console.log(fullname);
-  //const email = data.user?.email;
+
+  const { full_name: fullname } = await geFullname(data?.user?.id);
+
   return <NavigationHeaderMenu fullname={fullname} />;
 }

@@ -4,6 +4,8 @@ import "./globals.css";
 import PageHeader from "./header";
 import { createClient } from "@/utils/supabase/server";
 
+import { Toaster } from "react-hot-toast";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -34,6 +36,19 @@ export default async function RootLayout({
       >
         {error || !data ? "" : <PageHeader />}
         {children}
+        <Toaster
+          position="top-center"
+          gutter={12}
+          containerStyle={{ margin: "8px" }}
+          toastOptions={{
+            success: {
+              duration: 4000,
+            },
+            error: {
+              duration: 6000,
+            },
+          }}
+        />
       </body>
     </html>
   );
