@@ -165,7 +165,7 @@ export default function AccountForm({ user }: { user: User | null }) {
               />
             </div>
           </div>
-          <div className="space-y-4">
+          <div className="space-y-4 mt-4">
             {" "}
             {/* Container for buttons */}
             <SubmitButton
