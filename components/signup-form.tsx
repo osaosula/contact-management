@@ -9,17 +9,14 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import LoginButton from "./login-button";
-import { signup } from "@/app/login/actions";
 
-interface LoginFormProps extends React.ComponentProps<"div"> {
-  buttonMode: string;
-}
+import { signup } from "@/app/login/actions";
+import Link from "next/link";
+
 export default function SignUpForm({
-  buttonMode,
   className,
   ...props
-}: LoginFormProps) {
+}: React.ComponentProps<"div">) {
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -60,10 +57,13 @@ export default function SignUpForm({
                 </Button> */}
               </div>
             </div>
-            <div className="mt-4 text-center text-sm">
-              <LoginButton mode={buttonMode} />
-            </div>
           </form>
+          <div className="mt-4 text-center text-sm">
+            Already have an account?&nbsp;
+            <Link href="/login" className="text-blue-600 hover:underline">
+              Login here.
+            </Link>
+          </div>
         </CardContent>
       </Card>
     </div>
