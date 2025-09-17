@@ -63,7 +63,7 @@ export const NavigationHeaderMenu: React.FC<fullnameProp> = ({ fullname }) => {
                       <Link href="/account">Update profile</Link>
                     </NavigationMenuLink>
                     <NavigationMenuLink asChild>
-                      <Link href="/account/password-change">
+                      <Link href="/account/update-password">
                         Change password
                       </Link>
                     </NavigationMenuLink>
