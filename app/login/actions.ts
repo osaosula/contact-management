@@ -49,3 +49,29 @@ export async function signup(formData: FormData) {
   revalidatePath("/", "layout");
   redirect("/");
 }
+export async function resetUserPassword(email: string) {
+  console.log("Reset password function called.");
+  console.log(email);
+  const supabase = await createClient();
+
+  console.log("Email for password reset:", email);
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email);
+  if (error) {
+    console.error("Error sending password reset email:", error.message);
+    // redirect(`/login?c=${error.code}&m=${error.message}`);
+    return {
+      success: false,
+      error: "",
+    };
+  }
+  console.log("Password reset email sent:", data);
+  return {
+    success: true,
+    error: null,
+  };
+  // const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+  //   redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/update-password`,
+  // });
+  // revalidatePath("/", "layout");
+  // redirect("/");
+}

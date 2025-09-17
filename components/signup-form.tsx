@@ -1,3 +1,4 @@
+"use client";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,11 +13,14 @@ import { Label } from "@/components/ui/label";
 
 import { signup } from "@/app/login/actions";
 import Link from "next/link";
+import { useState } from "react";
+import { EyeIcon, EyeOff } from "lucide-react";
 
 export default function SignUpForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -45,8 +49,20 @@ export default function SignUpForm({
                   <span className="ml-auto inline-block text-sm">
                     Choose a password
                   </span>
+                  <span onClick={() => setShowPassword(!showPassword)}>
+                    {showPassword ? (
+                      <EyeOff className="ml-auto top-9 h-5 w-5 text-gray-400 cursor-pointer pl-1" />
+                    ) : (
+                      <EyeIcon className="ml-auto top-9 h-5 w-5 text-gray-400 cursor-pointer pl-1" />
+                    )}
+                  </span>
                 </div>
-                <Input id="password" name="password" type="password" required />
+                <Input
+                  id="password"
+                  name="password"
+                  type={`${showPassword ? "text" : "password"}`}
+                  required
+                />
               </div>
               <div className="flex flex-col gap-3">
                 <Button type="submit" className="w-full" formAction={signup}>

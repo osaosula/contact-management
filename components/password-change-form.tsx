@@ -8,9 +8,12 @@ import SubmitButton from "./submit-button"; // Re-use your SubmitButton componen
 import { Input } from "./ui/input"; // Assuming you have a UI Input component
 import { Button } from "./ui/button"; // Assuming you have a UI Button component
 
+import { EyeIcon, EyeOff } from "lucide-react";
 export default function PasswordChangeForm() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
   const supabase = createClient();
 
   const handlePasswordChange = useCallback(
@@ -75,32 +78,51 @@ export default function PasswordChangeForm() {
               >
                 New Password
               </label>
-              <Input
-                id="newPassword"
-                name="newPassword"
-                type="password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                required
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
+              <span className="relative flex items-center">
+                <Input
+                  id="newPassword"
+                  name="newPassword"
+                  type={`${showPassword ? "text" : "password"}`}
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  required
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
+                <span onClick={() => setShowPassword(!showPassword)}>
+                  {showPassword ? (
+                    <EyeOff className="ml-auto top-9 h-5 w-5 text-gray-400 cursor-pointer pl-1" />
+                  ) : (
+                    <EyeIcon className="ml-auto top-9 h-5 w-5 text-gray-400 cursor-pointer pl-1" />
+                  )}
+                </span>
+              </span>
             </div>
+
             <div>
               <label
                 htmlFor="confirmPassword"
                 className="block text-sm font-medium text-gray-700"
               >
                 Confirm New Password
-              </label>
-              <Input
-                id="confirmPassword"
-                name="confirmPassword"
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
+              </label>{" "}
+              <span className="relative flex items-center">
+                <Input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type={`${showPassword ? "text" : "password"}`}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />{" "}
+                <span onClick={() => setShowPassword(!showPassword)}>
+                  {showPassword ? (
+                    <EyeOff className="ml-auto top-9 h-5 w-5 text-gray-400 cursor-pointer pl-1" />
+                  ) : (
+                    <EyeIcon className="ml-auto top-9 h-5 w-5 text-gray-400 cursor-pointer pl-1" />
+                  )}
+                </span>
+              </span>
             </div>
           </div>
           <div className="mt-6 space-y-4">
