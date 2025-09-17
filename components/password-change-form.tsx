@@ -9,6 +9,7 @@ import { Input } from "./ui/input"; // Assuming you have a UI Input component
 import { Button } from "./ui/button"; // Assuming you have a UI Button component
 
 import { EyeIcon, EyeOff } from "lucide-react";
+
 export default function PasswordChangeForm() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -36,26 +37,24 @@ export default function PasswordChangeForm() {
         toast.error("Password must be at least 6 characters long.");
         return;
       }
-
       try {
         // Call Supabase auth.updateUser to change the password
         const { error } = await supabase.auth.updateUser({
           password: newPass,
         });
-
         if (error) {
-          console.error("Password change error:", error.message);
           toast.error(`Error changing password: ${error.message}`);
         } else {
           toast.success("Password changed successfully!");
-          setNewPassword(""); // Clear the fields on success
+          setNewPassword("");
           setConfirmPassword("");
-          // Optionally, you could redirect the user or re-authenticate them.
-          // For security, Supabase automatically updates the session.
+          const myForm = document.forms[0];
+          myForm.action = "/auth/signout";
+          myForm.method = "post";
+          myForm.submit();
         }
       } catch (err) {
-        console.error("Unexpected error during password change:", err);
-        toast.error("An unexpected error occurred.");
+        toast.error(`An unexpected error occurred ${err}`);
       }
     },
     [supabase]
